@@ -33,6 +33,9 @@ exports.addStore = async (req, res, next) => {
       data: store,
     });
   } catch (error) {
+    if (error.code == 11000) {
+      return res.status(400).json({ error: 'clave duplicada' });
+    }
     console.log(error);
     res.status(500).json({ error: 'Server error' });
   }
